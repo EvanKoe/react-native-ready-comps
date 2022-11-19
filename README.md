@@ -1,2 +1,17 @@
-# react-native-ready-comps
-React Native Ready Comps is a library where you can find rady-to-use and customizable components for entreprises. This lib is MIT licensed.
+# React native Ready Comps
+
+React Native Ready Comps is a library where you can find ready-to-use and customizable components, like buttons, textboxes, sliding panels, or forms, for react native. This lib is MIT licensed.
+
+## Installation and build
+
+```bash
+> npm i   // install dependencies
+> npx react-native run-android   // launch using android emulator
+> npx react-native start  // launch the development server
+```
+
+Press `r` to reload the application (but it should be automatically reloaded when you save a modification), and `d` to open the development menu on the smartphone.
+
+## MIT License
+
+The MIT License is an open-source license that allow anyone to use, modify and distribute this software with the condition that you must add a link to the creator's github repository in your application.
