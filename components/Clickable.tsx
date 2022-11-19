@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { ClickableComps } from '../Types/Comps';
+import { ClickableProps } from '../constants/CompTypes';
 
 const Clickable = ({
   value = '',
@@ -10,7 +10,7 @@ const Clickable = ({
   style = {},
   textStyle = {},
   textColor = undefined
-}: ClickableComps) => {
+}: ClickableProps) => {
   return (
     <TouchableOpacity
       style={[

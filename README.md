@@ -15,3 +15,7 @@ Press `r` to reload the application (but it should be automatically reloaded whe
 ## MIT License
 
 The MIT License is an open-source license that allow anyone to use, modify and distribute this software with the condition that you must add a link to the creator's github repository in your application.
+
+## Contributing
+
+You are a developer and you want to contribute to this awesome project ? Great ! Just raed the [Coding style](https://github.com/EvanKoe/react-native-ready-comps/tree/doc/coding-style.md) to be aware of the syntax we ask. You must also read and understand the [Code of conduct](https://github.com/EvanKoe/react-native-ready-comps/tree/doc/code-of-conduct.md). If you want details about how to create branches, pull requests, or commits, read our [CONTRIBUTING.md](https://github.com/EvanKoe/react-native-ready-comps/tree/doc/CONTRIBUTING.md).

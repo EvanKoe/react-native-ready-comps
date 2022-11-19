@@ -1,6 +1,6 @@
 import { TextStyle, ViewStyle } from 'react-native'
 
-interface ClickableComps {
+interface ClickableProps {
   value?: string,
   onPress?: () => void,
   onPressIn?: () => void,
@@ -11,5 +11,5 @@ interface ClickableComps {
 }
 
 export type {
-  ClickableComps
-};
+  ClickableProps
+}
