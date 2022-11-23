@@ -37,12 +37,18 @@ promise.then(() => {
 Indentations will be done using 2 spaces. Do not hesitate to go to a new line and indent when you see an inline object or function starts being too long.
 
 ```typescript
+// Don't
 promise.then(() => { console.log(myObject.firstKey.firstValue); }); // do not do this
+
+// Do
 promise.then(() => {
   console.log(myObject.firstKey.firstValue);
 }); // do this instead
 
-return (<View><Text>{ myObject.firstKey.firstValue }</Text></View>); // do not do this
+// Don't
+return (<View><Text>{ myObject.firstKey.firstValue }</Text></View>);
+
+// Do
 return (
   <View>
     <Text>
@@ -108,7 +114,7 @@ const MyComponent = ({
   a = -1,
   callback = () => {},
   str = undefined
-}) => {
+}: MyComponentProps) => {
   return (
     <Text>{ str ?? "str is undefined" }</Text>
     { a !== -1 && (
