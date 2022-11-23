@@ -42,14 +42,14 @@ promise.then(() => {
   console.log(myObject.firstKey.firstValue);
 }); // do this instead
 
-return (<View><Text>{ myObject.firstKey.firstValue }</Text></View>);
+return (<View><Text>{ myObject.firstKey.firstValue }</Text></View>); // do not do this
 return (
   <View>
     <Text>
       { myObject.firstKey.firstValue }
     </Text>
   </View>
-);
+);    // do this instead
 ```
 
 ### Spaces

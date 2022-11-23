@@ -2,19 +2,22 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ClickableProps } from '../constants/CompTypes';
 
-const Clickable = ({
+const createClickable = ({
   value = '',
   onPress = () => {},
   onPressIn = () => {},
   onPressOut = () => {},
   style = {},
   textStyle = {},
-  textColor = undefined
+  textColor = undefined,
+  backgroundColor = undefined,
+  borderRadius = undefined
 }: ClickableProps) => {
   return (
     <TouchableOpacity
       style={[
         styles.container,
+        backgroundColor ? { backgroundColor: backgroundColor } : {  },
         style
       ]}
       onPress={onPress}
@@ -50,4 +53,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Clickable;
+export default createClickable;

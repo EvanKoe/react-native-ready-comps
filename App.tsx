@@ -1,17 +1,23 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native'
-import Clickable from './components/Clickable';
+import { StyleSheet, SafeAreaView } from 'react-native'
+import createRComps from './Base';
 
 export default () => {
+  const RComps = createRComps({ primaryColor: '#59ddf9', textColor: '#212121' });
+
   return (
-    <View style={styles.container}>
-      <Clickable value="Log in please" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <RComps.Clickable value="bonjour" onPress={() => console.log('pute')} />
+      <RComps.Clickable value='pute' backgroundColor='#e4f' />
+      <RComps.FAB text='PUTE' />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16
+    backgroundColor: '#ddd',
+    padding: 16,
+    flex: 1
   }
 });
