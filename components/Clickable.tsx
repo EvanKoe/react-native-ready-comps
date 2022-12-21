@@ -1,56 +1,83 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useCallback } from 'react';
+import { StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { ClickableProps } from '../constants/CompTypes';
 
 const createClickable = ({
-  value = '',
+  value,
   onPress = () => {},
   onPressIn = () => {},
   onPressOut = () => {},
-  style = {},
-  textStyle = {},
-  textColor = undefined,
-  backgroundColor = undefined,
-  borderRadius = undefined
+  style,
+  textStyle,
+  textColor,
+  backgroundColor,
+  borderRadius,
+  styleType,
+  colors
 }: ClickableProps) => {
+  const elevation = useSharedValue(10);
+  const scale = useSharedValue(1);
+
+  const pressIn = useCallback(() => {
+    scale.value = withTiming(0.98, { duration: 100 });
+    elevation.value = withTiming(5, { duration: 100 });
+    onPressIn();
+  }, []);
+
+  const pressOut = useCallback(() => {
+    scale.value = withTiming(1, { duration: 100 });
+    elevation.value = withTiming(10, { duration: 100 });
+    onPressOut();
+  }, []);
+
+  const containerAnimStyle = useAnimatedStyle(() => {
+    return {
+      elevation: elevation.value,
+      borderRadius: borderRadius,
+      // backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor,
+      transform: [{ scale: scale.value }]
+    }
+  });
+
+  const styles = StyleSheet.create({
+    container: {
+      paddingVertical: 16,
+      paddingHorizontal: 24,
+      flexDirection: 'row',
+      alignSelf: 'flex-start'
+    },
+    text: {
+      color: '#ddd',
+      fontWeight: '500',
+      fontSize: 16,
+      textAlign: 'center'
+    }
+  });
+
   return (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        backgroundColor ? { backgroundColor: backgroundColor } : {  },
-        style
-      ]}
+    <TouchableWithoutFeedback
       onPress={onPress}
-      onPressIn={onPressIn}
-      onPressOut={onPressOut}
+      onPressIn={pressIn}
+      onPressOut={pressOut}
     >
-      { value !== '' && (
-        <Text style={[
-            styles.text,
-            textStyle,
-            textColor !== undefined ? { color: textColor } : {}
-        ]}>{ value }</Text>
-      ) }
-    </TouchableOpacity>
+      <Animated.View style={[
+        styles.container,
+        containerAnimStyle,
+        style
+      ]}>
+        { value !== '' && (
+          <Text style={[
+              styles.text,
+              textStyle,
+              textColor !== undefined ? { color: textColor } : {}
+          ]}>{ value }</Text>
+        ) }
+      </Animated.View>
+    </TouchableWithoutFeedback>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#545df9',
-    borderRadius: 8,
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    elevation: 20,
-    flexDirection: 'row',
-    alignSelf: 'flex-start'
-  },
-  text: {
-    color: '#ddd',
-    fontWeight: '500',
-    fontSize: 16,
-    textAlign: 'center'
-  }
-});
 
 export default createClickable;

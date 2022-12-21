@@ -11,6 +11,7 @@ const createFAB = ({
   onPressOut,
   style,
   text,
+  borderRadius,
   textStyle
 }: FABProps) => {
   return (
@@ -18,6 +19,7 @@ const createFAB = ({
       style={[
         styles.container,
         backgroundColor ? { backgroundColor: backgroundColor } : {  },
+        { borderRadius: borderRadius },
         style
       ]}
       onPress={onPress}
@@ -42,7 +44,6 @@ const styles = StyleSheet.create({
   container: {
     maxWidth: 200,
     backgroundColor: '#545df9',
-    borderRadius: 100,
     elevation: 8,
     position: 'absolute',
     bottom: 24,

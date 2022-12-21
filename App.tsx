@@ -1,23 +1,40 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native'
+import { StyleSheet, SafeAreaView, Dimensions } from 'react-native'
+import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import createRComps from './Base';
 
 export default () => {
-  const RComps = createRComps({ primaryColor: '#59ddf9', textColor: '#212121' });
+  const RComps = createRComps({
+    primaryColor: '#59ddf9',
+    secondaryColor: '#545df9',
+    textColor: '#212121',
+    radius: 20
+  });
+
+  const backgroundAnim = useAnimatedStyle(() => {
+    return {
+      backgroundColor: RComps.currentBackgroundColor.value,
+      padding: 16,
+      height: '100%'
+    }
+  });
 
   return (
-    <SafeAreaView style={styles.container}>
-      <RComps.Clickable value="bonjour" onPress={() => console.log('pute')} />
-      <RComps.Clickable value='pute' backgroundColor='#e4f' />
-      <RComps.FAB text='PUTE' />
+    <SafeAreaView style={[
+    ]}>
+      <Animated.View style={backgroundAnim}>
+        <RComps.Clickable
+          value={RComps.isDarkTheme() ? 'Switch to light theme' : 'Switch to dark theme'}
+          onPress={() => RComps.setIfDarkTheme(e => !e)}
+      />
+        <RComps.FAB text='FAB' />
+        <RComps.InputText
+          styleType='primary'
+          placeholder='Your text here'
+          onFinished={(e: string) => console.log(e)}
+          type='full'
+        />
+      </Animated.View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#ddd',
-    padding: 16,
-    flex: 1
-  }
-});

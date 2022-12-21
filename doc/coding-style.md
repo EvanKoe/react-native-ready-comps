@@ -11,8 +11,18 @@ A coding style is a set of rules that explain how to get a clean code and helps 
 We use Typescript. And one of its greatest advantages is that you must declare types for your variables. You also must declare types for templates.
 
 ```typescript
+// Don't
+const a = 1;
+const [a, setA] = useState(1);
+
+// Do
 const a: number = 1;
 const [a, setA] = useState<number>(1);
+
+// Warning ! It's the same thing when you declare a function. Please avoid 'any' types in your code as much as possible.
+interface a {
+  fun: (a: number) => boolean;
+};
 ```
 
 ### Semicolons
@@ -34,16 +44,16 @@ promise.then(() => {
 
 ### Indentations
 
-Indentations will be done using 2 spaces. Do not hesitate to go to a new line and indent when you see an inline object or function starts being too long.
+Indentations will be done using 2 spaces. Do not hesitate to go to a new line and indent when you see that an inline object or function begins to be too long.
 
 ```typescript
 // Don't
-promise.then(() => { console.log(myObject.firstKey.firstValue); }); // do not do this
+promise.then(() => { console.log(myObject.firstKey.firstValue); });
 
 // Do
 promise.then(() => {
   console.log(myObject.firstKey.firstValue);
-}); // do this instead
+});
 
 // Don't
 return (<View><Text>{ myObject.firstKey.firstValue }</Text></View>);
@@ -55,7 +65,7 @@ return (
       { myObject.firstKey.firstValue }
     </Text>
   </View>
-);    // do this instead
+);
 ```
 
 ### Spaces
@@ -63,9 +73,22 @@ return (
 You must add spaces inside of curly brackets, around parenthesis in `if`, `for` and `while` statements, after commas, before and after equal signs (unless they are an arrow =>), and after colons. You must NOT add a space before or after semicolons.
 
 ```typescript
+// Don't
+const a:number=1;
+promise.then(()=>{console.log(a);});
+if(a===1){
+  console.log(a);
+}
+
+// Do
 const a: number = 1;
 promise.then(() => { console.log(a); });
 if (a === 1) {
+  console.log(a);
+}
+
+// Warning ! Spaces INSIDE of parenthesis in 'if' and 'for' statements won't be tolerated.
+if ( a === 1 ) { // Don't do that
   console.log(a);
 }
 
@@ -73,9 +96,9 @@ if (a === 1) {
 
 > Do not hesitate to add empty new lines everywhere you think they could help to make your code easier to read !
 
-### Functionnal components and ES7
+### Functional components and ES7
 
-You must use ES7 javascript coding rules and functionnal components in React Native. No class components will be tolerated.
+You must use ES7 javascript coding rules and functional components in React Native. No class components will be tolerated.
 
 ```typescript
 // to declare a function
@@ -98,8 +121,10 @@ const MyComponent = ({
 ### Component prop types
 
 For each component you make, you must create a type that defines all the props you can send to the component. By default, make all props not required, unless you're forced to pass them. This props type must be named `MyComponentProps` and be declared in `constants/CompTypes.tsx` as an interface.
-In your components, you must define default values, unless you're forced to pass them.
+In the `Base.tsx`, you must define default values for your component, unless those props are required.
 You are also asked to do a decent error handling, using the `??` keyword, or by simply using ternary operators.
+
+I also recommend to make props not required, unless you're forced to pass them in any way to make your component work properly.
 
 ```typescript
 // constants/CompTypes.tsx
@@ -107,13 +132,13 @@ interface MyComponentProps {
   a?: number,
   callback?: () => void,
   str?: string | undefined
-}
+} // see the '?:' that says those props are not required
 
 // components/MyComponent.tsx
 const MyComponent = ({
-  a = -1,
-  callback = () => {},
-  str = undefined
+  a,
+  callback,
+  str
 }: MyComponentProps) => {
   return (
     <Text>{ str ?? "str is undefined" }</Text>
@@ -154,6 +179,18 @@ const [a, setA] = useState<number>(1);
 import React from 'react';
 
 const [a, setA] = React.useState<number>(1);
+```
+
+### Trailing spaces before closing tag
+
+You're asked to let a space between the last prop and the closing tag of a component that closes itself.
+
+```typescript
+// Do
+<RComps.Clickable value='hello' /> // notice the space before the '/' character
+
+// Don't
+<RComps.Clickable value='hello'/>
 ```
 
 ## Outro
