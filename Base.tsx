@@ -9,12 +9,14 @@ import {
   FABProps,
   InputTextProps,
   RCompsProps,
-  RCompsType
+  RCompsType,
+  SlidingPanelProps
 } from './constants/CompTypes';
 import createClickable from './components/Clickable'
 import createFAB from './components/FAB';
 import createInputText from './components/InputText';
 import { Easing, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import createSlidingPanel from './components/SlidingPanel';
 
 const createRComps = ({
   primaryColor = '#545df9',
@@ -30,7 +32,9 @@ const createRComps = ({
   darkTheme = false,
   animationType = 'timing',
   animationDuration = 100,
-  animationEase = 'easeInOut'
+  animationEase = 'easeInOut',
+  titleFont = 'Roboto',
+  font = 'Roboto'
 }: RCompsProps): RCompsType => {
   const [_isDarkTheme, _setIfDarkTheme] = useState<boolean>(darkTheme);
   const [_primary, _setPrimary] = useState<string>(primaryColor);
@@ -41,9 +45,11 @@ const createRComps = ({
   const [_lightBgColor, _setLightBgColor] = useState<string>(backgroundColor);
   const [_darkBgColor, _setDarkBgColor] = useState<string>(darkBackgroundColor);
   const _bgColor = useSharedValue(_lightBgColor);
+  const [_font, _setFont] = useState<string>(font);
+  const [_titleFont, _setTitleFont] = useState<string>(titleFont);
 
   // Updates the theme according to _isDarkTheme
-  const refreshTheme = () => {
+  const refreshTheme: (() => void) = () => {
     _setPrimary(_isDarkTheme ? primaryDarkColor : primaryColor);
     _setSecondary(_isDarkTheme ? secondaryDarkColor : secondaryColor);
     _setTextColor(_isDarkTheme ? darkTextColor : textColor);
@@ -108,7 +114,8 @@ const createRComps = ({
       value = 'Click here',
       style = {},
       backgroundColor = styleType === 'primary' ? _primary : _secondary,
-      borderRadius = _radius
+      borderRadius = _radius,
+      font = _font,
     }: ClickableProps) => createClickable({
       onPress,
       onPressIn,
@@ -120,7 +127,8 @@ const createRComps = ({
       styleType,
       backgroundColor,
       borderRadius,
-      colors: [_primary, _secondary]
+      colors: [_primary, _secondary],
+      font
     }),
 
     // Fast Action Button Component
@@ -135,7 +143,9 @@ const createRComps = ({
       style = {},
       text = undefined,
       textStyle = {},
-      borderRadius = _radius
+      borderRadius = _radius,
+      round = false,
+      font = _font
     }: FABProps) => createFAB({
       backgroundColor,
       textColor,
@@ -147,7 +157,9 @@ const createRComps = ({
       text,
       textStyle,
       borderRadius,
-      colors: [_primary, _secondary]
+      colors: [_primary, _secondary],
+      round,
+      font
     }),
 
     // Input text
@@ -177,10 +189,30 @@ const createRComps = ({
       value,
       borderRadius,
       colors: [_primary, _secondary]
+    }),
+
+    SlidingPanel: ({
+      children = <></>,
+      animatedBackgroundColor = _bgColor,
+      backgroundColor = undefined,
+      openedSize = 0,
+      closedSize = 0,
+      style = {},
+      borderRadius = _radius,
+      disableBorderRadiusWhenFullscreen = true
+    }: SlidingPanelProps) => createSlidingPanel({
+      children,
+      animatedBackgroundColor,
+      backgroundColor,
+      openedSize,
+      closedSize,
+      style,
+      borderRadius,
+      disableBorderRadiusWhenFullscreen
     })
 
     // Add new components here
-  }
+  };
 
   return RComp;
 }

@@ -12,6 +12,19 @@ React Native Ready Comps is a library where you can find ready-to-use and custom
 
 Press `r` to reload the application (but it should be automatically reloaded when you save a modification), and `d` to open the development menu on the smartphone.
 
+## Get started
+
+First, you MUST wrap your application in a `GestureHandlerRootView` from `react-native-gesture-handler` if you want to use the `SlidingPanel` and everything gesture handling related.
+```javascript
+const App = () => {
+  return (
+    <GestureHandlerRootView>
+      {/* your app */}
+    </GestureHandlerRootView>
+  )
+}
+```
+
 ## MIT License
 
 The MIT License is an open-source license that allow anyone to use, modify and distribute this software with the condition that you must add a link to the creator's github repository in your application.

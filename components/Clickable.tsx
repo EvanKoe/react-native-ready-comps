@@ -14,7 +14,8 @@ const createClickable = ({
   backgroundColor,
   borderRadius,
   styleType,
-  colors
+  colors,
+  font
 }: ClickableProps) => {
   const elevation = useSharedValue(10);
   const scale = useSharedValue(1);
@@ -44,15 +45,16 @@ const createClickable = ({
   const styles = StyleSheet.create({
     container: {
       paddingVertical: 16,
-      paddingHorizontal: 24,
+      paddingHorizontal: 20,
       flexDirection: 'row',
       alignSelf: 'flex-start'
     },
     text: {
       color: '#ddd',
       fontWeight: '500',
-      fontSize: 16,
-      textAlign: 'center'
+      fontSize: 12,
+      textAlign: 'center',
+      fontFamily: font
     }
   });
 
@@ -78,6 +80,5 @@ const createClickable = ({
     </TouchableWithoutFeedback>
   );
 }
-
 
 export default createClickable;

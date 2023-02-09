@@ -1,5 +1,5 @@
-import { TextStyle, ViewStyle } from 'react-native'
-import { SharedValue } from 'react-native-reanimated';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native'
+import Animated, { SharedValue } from 'react-native-reanimated';
 
 type RCompsType = {
   // methods
@@ -43,6 +43,7 @@ type RCompsType = {
   Clickable: (e: ClickableProps) => JSX.Element;
   FAB: (e: FABProps) => JSX.Element;
   InputText: (e: InputTextProps) => JSX.Element;
+  SlidingPanel: (e: SlidingPanelProps) => JSX.Element;
 };
 
 interface RCompsProps {
@@ -87,6 +88,10 @@ interface RCompsProps {
 
   // animation type for timing
   animationEase?: 'easeIn' | 'easeOut' | 'easeInOut'
+
+  // title and text fonts
+  titleFont?: string;
+  font?: string;
 }
 
 interface ClickableProps {
@@ -100,7 +105,8 @@ interface ClickableProps {
   backgroundColor?: string | undefined,
   borderRadius?: number,
   styleType?: 'primary' | 'secondary',
-  colors?: string[]          // array of colors containing [primary, secondary, thirdIfExists]
+  colors?: string[],          // array of colors containing [primary, secondary, thirdIfExists]
+  font?: string
 }
 
 interface FABProps {
@@ -115,7 +121,9 @@ interface FABProps {
   textColor?: string | undefined,
   styleType?: 'primary' | 'secondary',
   borderRadius?: number,
-  colors?: string[]          // array of colors containing [primary, secondary, thirdIfExists]
+  colors?: string[],          // array of colors containing [primary, secondary, thirdIfExists]
+  round?: boolean,             // if you want it round or following the global borderRadius
+  font?: string
 }
 
 interface InputTextProps {
@@ -134,10 +142,23 @@ interface InputTextProps {
   borderRadius?: number
 }
 
+interface SlidingPanelProps {
+  children?: JSX.Element | Array<JSX.Element>,
+  animatedBackgroundColor?: Animated.SharedValue<string>,
+  backgroundColor?: string | undefined;
+  openedSize?: number,
+  closedSize: number,
+  style?: StyleProp<ViewStyle>,
+  borderRadius?: number,
+  disableBorderRadiusWhenFullscreen?: boolean,
+}
+
+
 export type {
   RCompsType,
   ClickableProps,
   RCompsProps,
   FABProps,
-  InputTextProps
+  InputTextProps,
+  SlidingPanelProps
 }

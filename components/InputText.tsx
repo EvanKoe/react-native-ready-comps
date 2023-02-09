@@ -11,7 +11,7 @@ const createInputText = (props: InputTextProps) => {
       borderRadius: props.borderRadius,
       borderColor: props.colors[1],
       color: '#ddd',
-      borderWidth: 3,
+      borderWidth: 2,
     },
     containerLined: {
       borderBottomColor: '#545df9',
@@ -21,7 +21,7 @@ const createInputText = (props: InputTextProps) => {
     },
     defaultTextStyle: {
       color: props.colors[1],
-      fontSize: 18,
+      fontSize: 14,
     }
   });
 

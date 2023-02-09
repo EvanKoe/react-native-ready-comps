@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { FABProps } from '../constants/CompTypes';
 
 const createFAB = ({
@@ -12,38 +12,41 @@ const createFAB = ({
   style,
   text,
   borderRadius,
-  textStyle
+  textStyle,
+  round,
+  font
 }: FABProps) => {
   return (
     <TouchableOpacity
       style={[
         styles.container,
-        backgroundColor ? { backgroundColor: backgroundColor } : {  },
-        { borderRadius: borderRadius },
+        { backgroundColor: backgroundColor ?? '#545df9' },
+        { borderRadius: round ? 200 : borderRadius },
         style
       ]}
       onPress={onPress}
       onPressIn={onPressIn}
       onPressOut={onPressOut}
     >
-      { children && children }
-      { text !== undefined && (
-        <Text
-          style={[
-            styles.text,
-            textColor ? { color: textColor } : {  },
-            textStyle
-          ]}
-        >{ text }</Text>
-      ) }
+        { children && children }
+        { text !== undefined && (
+          <Text
+            style={[
+              styles.text,
+              textColor ? { color: textColor } : {  },
+              { fontFamily: font },
+              textStyle
+            ]}
+          >{ text }</Text>
+        ) }
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    zIndex: 20,
     maxWidth: 200,
-    backgroundColor: '#545df9',
     elevation: 8,
     position: 'absolute',
     bottom: 24,
