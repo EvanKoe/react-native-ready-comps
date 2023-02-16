@@ -44,6 +44,8 @@ type RCompsType = {
   FAB: (e: FABProps) => JSX.Element;
   InputText: (e: InputTextProps) => JSX.Element;
   SlidingPanel: (e: SlidingPanelProps) => JSX.Element;
+  Title: (e: TitleProps) => JSX.Element;
+  Tile: (e: TileProps) => JSX.Element;
 };
 
 interface RCompsProps {
@@ -106,7 +108,8 @@ interface ClickableProps {
   borderRadius?: number,
   styleType?: 'primary' | 'secondary',
   colors?: string[],          // array of colors containing [primary, secondary, thirdIfExists]
-  font?: string
+  font?: string,
+  disabled?: boolean
 }
 
 interface FABProps {
@@ -151,8 +154,25 @@ interface SlidingPanelProps {
   style?: StyleProp<ViewStyle>,
   borderRadius?: number,
   disableBorderRadiusWhenFullscreen?: boolean,
+  slidingBar?: boolean,
+  slidingBarStyle?: StyleProp<ViewStyle>
 }
 
+interface TitleProps {
+  children?: string,
+  style?: StyleProp<TextStyle>,
+  size?: 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS',
+  bold?: boolean,               // if you want to set up another value, use style
+  color?: string,               // aims to be replaced by default with RComps object
+  font?: string
+}
+
+interface TileProps {
+  children?: JSX.Element | JSX.Element[],
+  borderRadius?: number
+  backgroundColor?: string,
+  style?: StyleProp<ViewStyle>
+}
 
 export type {
   RCompsType,
@@ -160,5 +180,7 @@ export type {
   RCompsProps,
   FABProps,
   InputTextProps,
-  SlidingPanelProps
+  SlidingPanelProps,
+  TitleProps,
+  TileProps
 }

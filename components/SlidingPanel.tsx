@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, View } from 'react-native';
 import { GestureEvent, PanGestureHandler, PanGestureHandlerEventPayload, State } from 'react-native-gesture-handler';
 import Animated, { useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { SlidingPanelProps } from '../constants/CompTypes';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -15,7 +16,9 @@ const createSlidingPanel = ({
   closedSize,
   style,
   borderRadius,
-  disableBorderRadiusWhenFullscreen
+  disableBorderRadiusWhenFullscreen,
+  slidingBar,
+  slidingBarStyle
 }: SlidingPanelProps) => {
   const [isOpened, setIfOpened] = useState<boolean>(false);
   const closed = closedSize ? closedSize : 50;
@@ -32,7 +35,7 @@ const createSlidingPanel = ({
       width: WIDTH,
       height: HEIGHT * 2,
       borderRadius: withTiming(animatedBorderRadius.value)
-    }
+    };
   }, []);
 
   const pan = (e: GestureEvent<PanGestureHandlerEventPayload>) => {
@@ -56,12 +59,26 @@ const createSlidingPanel = ({
     ) ? 0 : (borderRadius ?? 0);
   }, [isOpened]);
 
+  const styles = StyleSheet.create({
+    slidingBar: {
+      backgroundColor: '#999',
+      width: '25%',
+      height: 4,
+      borderRadius: 50,
+      marginVertical: 8,
+      alignSelf: 'center'
+    }
+  });
+
   return (
     <PanGestureHandler
       onGestureEvent={pan}
     >
       <Animated.View style={[ animatedStyle, style ]}>
         <>
+          { slidingBar && (
+            <View style={[ styles.slidingBar, slidingBarStyle ]} />
+          ) }
           { children }
         </>
       </Animated.View>

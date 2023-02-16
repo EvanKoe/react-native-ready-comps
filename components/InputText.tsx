@@ -6,7 +6,7 @@ const createInputText = (props: InputTextProps) => {
   const styles = StyleSheet.create({
     containerFull: {
       paddingHorizontal: 16,
-      paddingVertical: 4,
+      paddingVertical: 2,
       backgroundColor: props.backgroundColor,
       borderRadius: props.borderRadius,
       borderColor: props.colors[1],

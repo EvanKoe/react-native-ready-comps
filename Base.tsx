@@ -10,21 +10,25 @@ import {
   InputTextProps,
   RCompsProps,
   RCompsType,
-  SlidingPanelProps
+  SlidingPanelProps,
+  TileProps,
+  TitleProps
 } from './constants/CompTypes';
 import createClickable from './components/Clickable'
 import createFAB from './components/FAB';
 import createInputText from './components/InputText';
 import { Easing, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import createSlidingPanel from './components/SlidingPanel';
+import createTitle from './components/Title';
+import createTile from './components/Tile';
 
 const createRComps = ({
   primaryColor = '#545df9',
   secondaryColor = '#342d2d',
-  textColor = '#dddddd',
+  textColor = '#000',
   primaryDarkColor = '#7f7fff',
   secondaryDarkColor = '#f5bfc5',
-  darkTextColor = '#dddddd',
+  darkTextColor = '#eee',
   backgroundColor = '#ddd',
   darkBackgroundColor = '#212121',
   radius = 8,
@@ -116,6 +120,7 @@ const createRComps = ({
       backgroundColor = styleType === 'primary' ? _primary : _secondary,
       borderRadius = _radius,
       font = _font,
+      disabled = false
     }: ClickableProps) => createClickable({
       onPress,
       onPressIn,
@@ -128,7 +133,8 @@ const createRComps = ({
       backgroundColor,
       borderRadius,
       colors: [_primary, _secondary],
-      font
+      font,
+      disabled
     }),
 
     // Fast Action Button Component
@@ -177,6 +183,7 @@ const createRComps = ({
       value = undefined,
       borderRadius = _radius
     }: InputTextProps) => createInputText({
+      styleType,
       type,
       backgroundColor,
       children,
@@ -191,6 +198,7 @@ const createRComps = ({
       colors: [_primary, _secondary]
     }),
 
+    // Sliding panel
     SlidingPanel: ({
       children = <></>,
       animatedBackgroundColor = _bgColor,
@@ -199,7 +207,8 @@ const createRComps = ({
       closedSize = 0,
       style = {},
       borderRadius = _radius,
-      disableBorderRadiusWhenFullscreen = true
+      disableBorderRadiusWhenFullscreen = true,
+      slidingBar = true
     }: SlidingPanelProps) => createSlidingPanel({
       children,
       animatedBackgroundColor,
@@ -208,7 +217,38 @@ const createRComps = ({
       closedSize,
       style,
       borderRadius,
-      disableBorderRadiusWhenFullscreen
+      disableBorderRadiusWhenFullscreen,
+      slidingBar
+    }),
+
+    // Title
+    Title: ({
+      size = 'L',
+      bold = false,
+      style = {},
+      color = _textColor,
+      children = "Title",
+      font = _font
+    }: TitleProps) => createTitle({
+      size,
+      bold,
+      style,
+      color,
+      children,
+      font
+    }),
+
+    // Tile
+    Tile: ({
+      children = <></>,
+      backgroundColor = _bgColor.value,
+      borderRadius = _radius,
+      style = {}
+    }: TileProps) => createTile({
+      children,
+      backgroundColor,
+      borderRadius,
+      style
     })
 
     // Add new components here

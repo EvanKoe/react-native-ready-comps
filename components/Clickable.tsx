@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { ClickableProps } from '../constants/CompTypes';
@@ -15,18 +15,25 @@ const createClickable = ({
   borderRadius,
   styleType,
   colors,
-  font
+  font,
+  disabled
 }: ClickableProps) => {
-  const elevation = useSharedValue(10);
+  const elevation = useSharedValue(disabled ? 0 : 10);
   const scale = useSharedValue(1);
 
   const pressIn = useCallback(() => {
+    if (disabled) {
+      return;
+    }
     scale.value = withTiming(0.98, { duration: 100 });
     elevation.value = withTiming(5, { duration: 100 });
     onPressIn();
   }, []);
 
   const pressOut = useCallback(() => {
+    if (disabled) {
+      return;
+    }
     scale.value = withTiming(1, { duration: 100 });
     elevation.value = withTiming(10, { duration: 100 });
     onPressOut();
@@ -34,10 +41,9 @@ const createClickable = ({
 
   const containerAnimStyle = useAnimatedStyle(() => {
     return {
-      elevation: elevation.value,
+      elevation: disabled ? 0 : elevation.value,
       borderRadius: borderRadius,
-      // backgroundColor: backgroundColor,
-      backgroundColor: backgroundColor,
+      backgroundColor: disabled ? backgroundColor + '77' : backgroundColor,
       transform: [{ scale: scale.value }]
     }
   });
@@ -50,7 +56,7 @@ const createClickable = ({
       alignSelf: 'flex-start'
     },
     text: {
-      color: '#ddd',
+      color: disabled ? '#ddd' : '#777',
       fontWeight: '500',
       fontSize: 12,
       textAlign: 'center',
@@ -63,6 +69,7 @@ const createClickable = ({
       onPress={onPress}
       onPressIn={pressIn}
       onPressOut={pressOut}
+      disabled={disabled}
     >
       <Animated.View style={[
         styles.container,
