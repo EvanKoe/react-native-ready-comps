@@ -109,18 +109,20 @@ const createRComps = ({
 
     // Clickable Component
     Clickable: ({
-      styleType = 'primary',
+      styleType = 'full',
       onPress = () => {},
       onPressIn = () => {},
       onPressOut = () => {},
-      textColor = _textColor,
+      textColor = undefined,
       textStyle = {},
       value = 'Click here',
       style = {},
-      backgroundColor = styleType === 'primary' ? _primary : _secondary,
+      secondary = false,
+      backgroundColor = secondary ? _secondary : _primary,
       borderRadius = _radius,
       font = _font,
-      disabled = false
+      disabled = false,
+      boldText = false
     }: ClickableProps) => createClickable({
       onPress,
       onPressIn,
@@ -132,9 +134,10 @@ const createRComps = ({
       styleType,
       backgroundColor,
       borderRadius,
-      colors: [_primary, _secondary],
       font,
-      disabled
+      disabled,
+      secondary,
+      boldText
     }),
 
     // Fast Action Button Component
@@ -181,7 +184,8 @@ const createRComps = ({
       style = {},
       textStyle = {},
       value = undefined,
-      borderRadius = _radius
+      borderRadius = _radius,
+      colors = [_primary, _secondary]
     }: InputTextProps) => createInputText({
       styleType,
       type,
@@ -195,7 +199,7 @@ const createRComps = ({
       textStyle,
       value,
       borderRadius,
-      colors: [_primary, _secondary]
+      colors
     }),
 
     // Sliding panel

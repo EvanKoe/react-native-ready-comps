@@ -106,10 +106,11 @@ interface ClickableProps {
   textColor?: string | undefined,
   backgroundColor?: string | undefined,
   borderRadius?: number,
-  styleType?: 'primary' | 'secondary',
-  colors?: string[],          // array of colors containing [primary, secondary, thirdIfExists]
+  styleType?: 'full' | 'lined',
   font?: string,
-  disabled?: boolean
+  disabled?: boolean,
+  secondary?: boolean,
+  boldText?: boolean
 }
 
 interface FABProps {
