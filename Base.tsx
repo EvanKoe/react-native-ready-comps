@@ -12,7 +12,8 @@ import {
   RCompsType,
   SlidingPanelProps,
   TileProps,
-  TitleProps
+  TitleProps,
+  ModalProps
 } from './constants/CompTypes';
 import createClickable from './components/Clickable'
 import createFAB from './components/FAB';
@@ -21,6 +22,7 @@ import { Easing, useSharedValue, withSpring, withTiming } from 'react-native-rea
 import createSlidingPanel from './components/SlidingPanel';
 import createTitle from './components/Title';
 import createTile from './components/Tile';
+import createModal from './components/Modal';
 
 const createRComps = ({
   primaryColor = '#545df9',
@@ -253,6 +255,28 @@ const createRComps = ({
       backgroundColor,
       borderRadius,
       style
+    }),
+
+    Modal: ({
+      children = <></>,
+      style = {},
+      backgroundColor = _bgColor.value,
+      borderRadius = _radius,
+      animationExitingDuration = 200,
+      animationEnteringDuration = 300,
+      doNotAnimate = false,
+      doNotAnimateExiting = false,
+      doNotAnimateEntering = false
+    }: ModalProps) => createModal({
+      children,
+      style,
+      backgroundColor,
+      borderRadius,
+      animationExitingDuration,
+      animationEnteringDuration,
+      doNotAnimateEntering,
+      doNotAnimateExiting,
+      doNotAnimate
     })
 
     // Add new components here

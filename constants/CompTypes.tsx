@@ -46,6 +46,7 @@ type RCompsType = {
   SlidingPanel: (e: SlidingPanelProps) => JSX.Element;
   Title: (e: TitleProps) => JSX.Element;
   Tile: (e: TileProps) => JSX.Element;
+  Modal: (e: ModalProps) => JSX.Element;
 };
 
 interface RCompsProps {
@@ -170,9 +171,21 @@ interface TitleProps {
 
 interface TileProps {
   children?: JSX.Element | JSX.Element[],
-  borderRadius?: number
+  borderRadius?: number,
   backgroundColor?: string,
   style?: StyleProp<ViewStyle>
+}
+
+interface ModalProps {
+  children?: JSX.Element | JSX.Element[],
+  borderRadius?: number,
+  backgroundColor?: string,
+  style?: StyleProp<ViewStyle>,
+  animationEnteringDuration?: number,
+  animationExitingDuration?: number,
+  doNotAnimate?: boolean,
+  doNotAnimateEntering?: boolean,
+  doNotAnimateExiting?: boolean
 }
 
 export type {
@@ -183,5 +196,6 @@ export type {
   InputTextProps,
   SlidingPanelProps,
   TitleProps,
-  TileProps
+  TileProps,
+  ModalProps
 }

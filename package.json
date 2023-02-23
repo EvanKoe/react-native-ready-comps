@@ -1,9 +1,9 @@
 {
   "name": "react-native-ready-comps",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "private": false,
-  "main": "./Base.tsx",
-  "module": "./Base.tsx",
+  "main": "./index.js",
+  "module": "./index.js",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -15,7 +15,7 @@
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-gesture-handler": "^2.9.0",
-    "react-native-reanimated": "^2.13.0"
+    "react-native-reanimated": "^2.14.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

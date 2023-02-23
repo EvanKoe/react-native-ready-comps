@@ -23,6 +23,8 @@ export default () => {
     }
   });
 
+  const [isModal, setIfModal] = React.useState<boolean>(false);
+
   return (
     <GestureHandlerRootView>
       <SafeAreaView>
@@ -81,17 +83,35 @@ export default () => {
                 />
               </View>
 
-              {/* Disabled */}
+              {/* Disabled primary */}
               <RComps.Title size='S' style={{ marginVertical: 12 }}>Disabled buttons</RComps.Title>
               <View style={{ flexDirection: 'row' }}>
                 <RComps.Clickable
                   disabled
                   value="DISABLED"
-                  textColor="#777"
+                  textColor={RComps.isDarkTheme() ? "#bbb" : "#777"}
                   style={{ flex: 1, marginHorizontal: 2 }}
                 />
                 <RComps.Clickable
                   disabled
+                  value="DISABLED"
+                  style={{ flex: 1, marginHorizontal: 2 }}
+                  styleType="lined"
+                />
+              </View>
+
+              {/* Disabled secondary */}
+              <View style={{ flexDirection: 'row', marginTop: 8 }}>
+                <RComps.Clickable
+                  disabled
+                  secondary
+                  value="DISABLED"
+                  textColor={RComps.isDarkTheme() ? "#bbb" : "#777"}
+                  style={{ flex: 1, marginHorizontal: 2 }}
+                />
+                <RComps.Clickable
+                  disabled
+                  secondary
                   value="DISABLED"
                   style={{ flex: 1, marginHorizontal: 2 }}
                   styleType="lined"
@@ -139,6 +159,21 @@ export default () => {
               <RComps.Title size='S'>S title</RComps.Title>
               <RComps.Title size='XS'>XS title</RComps.Title>
             </RComps.Tile>
+
+            <RComps.Tile
+              style={{ marginVertical: 12, display: 'flex' }} 
+              backgroundColor={RComps.isDarkTheme() ? "#f5bfc516" : "#fff"}
+            >
+              <RComps.Title bold>Modal</RComps.Title>
+              <View style={{ flexDirection: 'row' }}>
+                <RComps.Clickable
+                  onPress={() => setIfModal(e => !e)}
+                  value="Click here to show modal"
+                  textColor="#000000"
+                  style={{ flex: 1, marginTop: 12 }}
+                />
+              </View>
+            </RComps.Tile>
           </ScrollView>
         </Animated.View>
         <RComps.SlidingPanel
@@ -150,6 +185,28 @@ export default () => {
         >
           <RComps.Title bold>Sliding panel</RComps.Title>
         </RComps.SlidingPanel>
+        { isModal && (
+          <RComps.Modal doNotAnimateExiting>
+            <RComps.Title bold>This is a modal</RComps.Title>
+            <RComps.Title size='S' style={{ marginVertical: 12, marginHorizontal: 4 }}>Are you sure you want to do this ?</RComps.Title>
+            <View style={{ flexDirection: 'row', marginVertical: 12 }}>
+              <RComps.Clickable
+                textColor={RComps.isDarkTheme() ? '#000' : '#fff'}
+                onPress={() => setIfModal(e => !e)}
+                value="Cancel"
+                style={{ flex: 1, marginRight: 4 }}
+                backgroundColor='#900'
+              />
+              <RComps.Clickable
+                secondary
+                textColor={RComps.isDarkTheme() ? '#000' : '#fff'}
+                onPress={() => setIfModal(e => !e)}
+                style={{ flex: 1, marginLeft: 4 }}
+                value="Accept"
+              />
+            </View>
+          </RComps.Modal>
+        ) }
       </SafeAreaView>
     </GestureHandlerRootView>
   );
